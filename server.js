@@ -37,5 +37,5 @@ const PUBLIC_DIR = process.cwd() + '/dist'
 app.use(express.static(PUBLIC_DIR))
 
 app.get('*', function(request, response) {
-  response.sendFile(path.join(__dirname, 'client/dist/index.html'))
+  response.sendFile('index.html')
 })
