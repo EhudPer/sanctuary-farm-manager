@@ -4,6 +4,8 @@ const bodyParser = require('body-parser')
 
 const animals = require('./routes/api/animals')
 
+const path = require('path')
+
 const app = express()
 
 app.use(bodyParser.json())
@@ -32,12 +34,12 @@ if (process.env.NODE_ENV === 'production') {
   })
 }
 
-const PUBLIC_DIR = process.cwd() + '/dist'
+//const PUBLIC_DIR = process.cwd() + '/dist'
 
-app.use(express.static(PUBLIC_DIR))
+//app.use(express.static(PUBLIC_DIR))
 
-console.log(__dirname, 'DIRNAME')
+app.use(express.static(path.join(__dirname, 'dist')))
 
-app.get('*', function(request, response) {
-  response.sendFile(__dirname + '/client/dist/index.html')
+app.get('*', (_req, res) => {
+  res.sendFile(path.join(__dirname, 'dist/index.html'))
 })
