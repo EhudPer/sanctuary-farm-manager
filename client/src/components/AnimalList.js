@@ -81,14 +81,14 @@ class AnimalList extends Component {
               {animals.map(({ _id, name }) => (
                 <CSSTransition key={_id} timeout={500} classNames="fade">
                   <ListGroupItem>
-                    <Button
+                    {/* <Button
                       className="remove-btn"
                       color="danger"
                       size="sm"
                       onClick={this.onDeleteClick.bind(this, _id)}
                     >
                       Delete
-                    </Button>
+                    </Button> */}
                     {name}
                   </ListGroupItem>
                 </CSSTransition>
