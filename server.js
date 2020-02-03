@@ -29,9 +29,15 @@ if (process.env.NODE_ENV === 'production') {
   app.use((req, res, next) => {
     if (req.secure) next()
     else res.redirect(`https://'${req.headers.host}${req.url}`)
+
+    app.use(express.static('build'))
+
+    app.get('*', (req, res) => {
+      res.sendFile(path.resolve(__dirname, 'build', 'index.html'))
+    })
   })
+} else {
+  const PUBLIC_DIR = process.cwd() + '/dist'
+
+  app.use(express.static(PUBLIC_DIR))
 }
-
-const PUBLIC_DIR = process.cwd() + '/dist'
-
-app.use(express.static(PUBLIC_DIR))
