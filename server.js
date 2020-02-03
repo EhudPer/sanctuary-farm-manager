@@ -30,7 +30,7 @@ if (process.env.NODE_ENV === 'production') {
     if (req.secure) next()
     else res.redirect(`https://'${req.headers.host}${req.url}`)
   })
-  app.get('*', (req, res) => res.sendFile(path.resolve('build', 'index.html')))
+  app.get('*', (req, res) => res.sendFile(path.resolve('dist', 'index.html')))
 }
 
 const PUBLIC_DIR = process.cwd() + '/dist'
