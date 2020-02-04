@@ -2,7 +2,6 @@ const mongoose = require('mongoose')
 const express = require('express')
 const bodyParser = require('body-parser')
 const path = require('path')
-const appDir = path.dirname(require.main.filename)
 
 const animals = require('./routes/api/animals')
 
@@ -37,6 +36,7 @@ app.listen(port, () => console.log(`Server started on port ${port}`))
 // const PUBLIC_DIR = process.cwd() + '/dist'
 
 // app.use(express.static(PUBLIC_DIR))
+console.log(process.env.NODE_ENV)
 
 if (process.env.NODE_ENV === 'production') {
   app.enable('trust proxy')
@@ -48,6 +48,9 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'client/build')))
 
   app.get('*', (req, res) => {
+    console.log('in  appget *!')
+
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'))
   })
+  console.log('in production')
 }
