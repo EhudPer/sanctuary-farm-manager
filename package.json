@@ -4,7 +4,8 @@
   "description": "manage your sanctuary farm easily",
   "main": "server.js",
   "scripts": {
-    "start": "NODE_ENV=production node server.js",
+    "start": "NODE_ENV=production && npm install && node server.js",
+    "heroku-postbuild": "cd client && npm install && npm run build",
     "server": "NODE_ENV=development DEBUG=express:* nodemon server.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
