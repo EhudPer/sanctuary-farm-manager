@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const express = require('express')
 const bodyParser = require('body-parser')
 const path = require('path')
+const appDir = path.dirname(require.main.filename)
 
 const animals = require('./routes/api/animals')
 
@@ -44,9 +45,9 @@ if (process.env.NODE_ENV === 'production') {
     else res.redirect(`https://'${req.headers.host}${req.url}`)
   })
 
-  app.use(express.static(path.join(__dirname + '/client/build')))
+  app.use(express.static(path.join(appDir + '/client/build')))
 
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname + '/client/build/index.html'))
+    res.sendFile(path.join(appDir + '/client/build/index.html'))
   })
 }
