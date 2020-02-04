@@ -45,10 +45,10 @@ if (process.env.NODE_ENV === 'production') {
     else res.redirect(`https://'${req.headers.host}${req.url}`)
   })
 
-  app.use(express.static(path.join(__dirname, 'build')))
+  app.use(express.static(path.join(__dirname, '/client/build')))
 
-  app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'))
+  app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname + '/client/build/index.html'))
   })
 } else {
   const PUBLIC_DIR = process.cwd() + '/dist'
