@@ -38,7 +38,7 @@ app.listen(port, () => console.log(`Server started on port ${port}`))
 // app.use(express.static(PUBLIC_DIR))
 console.log(process.env.NODE_ENV, 'server.js line 39 log')
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production' || true) {
   console.log('in production 1')
   app.use(express.static(path.join(__dirname, 'client/build')))
 
