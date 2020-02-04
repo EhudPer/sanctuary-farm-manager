@@ -26,20 +26,32 @@ const port = process.env.PORT || 5000
 
 app.listen(port, () => console.log(`Server started on port ${port}`))
 
+//if (process.env.NODE_ENV === 'production') {
+//  app.enable('trust proxy')
+//  app.use((req, res, next) => {
+//    if (req.secure) next()
+//    else res.redirect(`https://'${req.headers.host}${req.url}`)
+//  })
+//}
+
+//const PUBLIC_DIR = process.cwd() + '/dist'
+
+//app.use(express.static(PUBLIC_DIR))
+
 if (process.env.NODE_ENV === 'production') {
   app.enable('trust proxy')
   app.use((req, res, next) => {
     if (req.secure) next()
     else res.redirect(`https://'${req.headers.host}${req.url}`)
   })
+
+  app.use(express.static(path.join(__dirname, 'build')))
+
+  app.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'))
+  })
+} else {
+  const PUBLIC_DIR = process.cwd() + '/dist'
+
+  app.use(express.static(PUBLIC_DIR))
 }
-
-//const PUBLIC_DIR = process.cwd() + '/dist'
-
-//app.use(express.static(PUBLIC_DIR))
-
-app.use(express.static(path.join(__dirname, 'dist')))
-
-app.get('*', (_req, res) => {
-  res.sendFile(path.join(__dirname + '/dist/index.html'))
-})
