@@ -36,22 +36,13 @@ app.listen(port, () => console.log(`Server started on port ${port}`))
 // const PUBLIC_DIR = process.cwd() + '/dist'
 
 // app.use(express.static(PUBLIC_DIR))
-console.log(process.env.NODE_ENV, 'server.js line 39 log')
-console.log(
-  'is process env production?: ',
-  process.env.NODE_ENV === 'production'
-)
 
-if (process.env.NODE_ENV === 'production' || true) {
-  console.log('in production 1')
+if (process.env.NODE_ENV.trim() === 'production') {
   app.use(express.static(path.join(__dirname, 'client/build')))
 
   app.get('*', (req, res) => {
-    console.log('in  appget *!')
-
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'))
   })
-  console.log('in production 2')
 
   app.enable('trust proxy')
   app.use((req, res, next) => {
