@@ -39,12 +39,6 @@ app.listen(port, () => console.log(`Server started on port ${port}`))
 console.log(process.env.NODE_ENV)
 
 if (process.env.NODE_ENV === 'production') {
-  app.enable('trust proxy')
-  app.use((req, res, next) => {
-    if (req.secure) next()
-    else res.redirect(`https://'${req.headers.host}${req.url}`)
-  })
-
   app.use(express.static(path.join(__dirname, 'client/build')))
 
   app.get('*', (req, res) => {
@@ -53,4 +47,10 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'))
   })
   console.log('in production')
+
+  app.enable('trust proxy')
+  app.use((req, res, next) => {
+    if (req.secure) next()
+    else res.redirect(`https://'${req.headers.host}${req.url}`)
+  })
 }
