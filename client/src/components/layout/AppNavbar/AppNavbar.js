@@ -9,8 +9,8 @@ import {
   NavLink,
   Container
 } from 'reactstrap'
-import '../css/AppNavbar.css'
-import logo from '../assets/logo.jpg'
+import '../../layout/AppNavbar/AppNavbar.css'
+import logo from '../../../assets/logo.jpg'
 
 class AppNavbar extends Component {
   state = {

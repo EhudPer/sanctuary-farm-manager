@@ -13,11 +13,15 @@ import {
   Label,
   Input
 } from 'reactstrap'
-import '../css/AnimalList.css'
+import './AnimalList.css'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { getAnimals, deleteAnimal, addAnimal } from '../actions/animalActions'
+import {
+  getAnimals,
+  deleteAnimal,
+  addAnimal
+} from '../../actions/animalActions'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router'
 
