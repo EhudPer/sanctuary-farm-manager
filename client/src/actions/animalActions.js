@@ -13,12 +13,6 @@ export const getAnimals = () => {
 }
 
 export const deleteAnimal = _id => {
-  // return {
-  //   type: DELETE_ANIMAL,
-  //   payload: id
-  // }
-  console.log(`${url}${_id}`)
-
   return async dispatch => {
     await axios.delete(`${url}${_id}`)
     return dispatch({
@@ -29,10 +23,6 @@ export const deleteAnimal = _id => {
 }
 
 export const addAnimal = newAnimal => {
-  // return {
-  //   type: ADD_ANIMAL,
-  //   payload: newAnimal
-  // }
   return async dispatch => {
     return dispatch({
       type: ADD_ANIMAL,

@@ -122,6 +122,10 @@
 
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { registerUser } from '../../../actions/authActions'
+import classnames from 'classnames'
 import {
   Container,
   Button,
@@ -145,19 +149,36 @@ class Register extends Component {
     }
   }
 
+  componentDidMount() {
+    // If logged in and user navigates to Register page, should redirect them to home
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push('/home')
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({
+        errors: nextProps.errors
+      })
+    }
+  }
+
   onChange = e => {
     this.setState({ [e.target.id]: e.target.value })
   }
 
   onSubmit = e => {
     e.preventDefault()
+
     const newUser = {
       name: this.state.name,
       email: this.state.email,
       password: this.state.password,
       password2: this.state.password2
     }
-    console.log(newUser)
+
+    this.props.registerUser(newUser, this.props.history)
   }
 
   onLoginClick = () => {
@@ -192,7 +213,8 @@ class Register extends Component {
               </div>
               <Form noValidate onSubmit={this.onSubmit}>
                 <FormGroup>
-                  <Label for="name">Name</Label>
+                  <Label for="name">Name:</Label>
+                  <span className="text-danger">{errors.name}</span>
                   <Input
                     onChange={this.onChange}
                     value={this.state.name}
@@ -201,10 +223,14 @@ class Register extends Component {
                     type="text"
                     name="name"
                     placeholder="Enter your full name"
+                    className={classnames('', {
+                      'border border-danger': errors.name
+                    })}
                   />
                 </FormGroup>
                 <FormGroup>
-                  <Label for="email">Email</Label>
+                  <Label for="email">Email:</Label>
+                  <span className="text-danger">{errors.email}</span>
                   <Input
                     onChange={this.onChange}
                     value={this.state.email}
@@ -213,10 +239,14 @@ class Register extends Component {
                     type="email"
                     name="email"
                     placeholder="Enter your email address"
+                    className={classnames('', {
+                      'border border-danger': errors.email
+                    })}
                   />
                 </FormGroup>
                 <FormGroup>
-                  <Label for="password">Password</Label>
+                  <Label for="password">Password:</Label>
+                  <span className="text-danger">{errors.password}</span>
                   <Input
                     onChange={this.onChange}
                     value={this.state.password}
@@ -225,10 +255,14 @@ class Register extends Component {
                     type="password"
                     name="password"
                     placeholder="Enter your new password"
+                    className={classnames('', {
+                      'border border-danger': errors.password
+                    })}
                   />
                 </FormGroup>
                 <FormGroup>
-                  <Label for="password2">Confirm Password</Label>
+                  <Label for="password2">Confirm Password:</Label>
+                  <span className="text-danger">{errors.password2}</span>
                   <Input
                     onChange={this.onChange}
                     value={this.state.password2}
@@ -237,6 +271,9 @@ class Register extends Component {
                     type="password"
                     name="password2"
                     placeholder="Confirm your new password"
+                    className={classnames('', {
+                      'border border-danger': errors.password2
+                    })}
                   />
                 </FormGroup>
                 <div className={Style['submit-btn-div']}>
@@ -252,4 +289,16 @@ class Register extends Component {
     )
   }
 }
-export default withRouter(Register)
+
+Register.propTypes = {
+  registerUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+})
+
+export default connect(mapStateToProps, { registerUser })(withRouter(Register))

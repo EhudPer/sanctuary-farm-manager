@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { logoutUser } from '../../../actions/authActions'
 import {
+  Button,
   Collapse,
   Navbar,
   NavbarToggler,
@@ -9,8 +13,9 @@ import {
   NavLink,
   Container
 } from 'reactstrap'
-import '../../layout/AppNavbar/AppNavbar.css'
+import CssModule from '../../layout/AppNavbar/AppNavbar.module.css'
 import logo from '../../../assets/logo.jpg'
+import App from '../../../containers/App/App'
 
 class AppNavbar extends Component {
   state = {
@@ -21,6 +26,12 @@ class AppNavbar extends Component {
     this.setState({
       isOpen: !this.state.isOpen
     })
+  }
+
+  onLogoutClick = e => {
+    e.preventDefault()
+
+    this.props.logoutUser()
   }
 
   render() {
@@ -36,8 +47,8 @@ class AppNavbar extends Component {
       >
         <Navbar color="dark" dark expand="sm" className="mb-5">
           <Container>
-            <NavbarBrand className="navbar-brand" href="/">
-              <img src={logo} />
+            <NavbarBrand className={CssModule['navbar-brand']} href="/">
+              <img className={CssModule['logo-img']} src={logo} />
               Sanctuary Farm Manager
             </NavbarBrand>
             <NavbarToggler onClick={this.toggle} />
@@ -48,10 +59,34 @@ class AppNavbar extends Component {
                 </NavItem>
               </Nav>
             </Collapse>
+            {true ? (
+              <Button
+                style={{
+                  width: '150px',
+                  borderRadius: '3px',
+                  letterSpacing: '1.5px',
+                  marginTop: '1rem'
+                }}
+                onClick={this.onLogoutClick}
+              >
+                Logout
+              </Button>
+            ) : null}
           </Container>
         </Navbar>
       </div>
     )
   }
 }
-export default AppNavbar
+
+AppNavbar.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+  isAuthenticated: state.isAuthenticated
+})
+
+export default connect(mapStateToProps, { logoutUser })(AppNavbar)

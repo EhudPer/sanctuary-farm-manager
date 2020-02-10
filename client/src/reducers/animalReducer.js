@@ -4,41 +4,10 @@ import {
   UPDATE_ANIMAL,
   DELETE_ANIMAL
 } from '../actions/types'
-// import axios from 'axios'
-// import uuid from 'uuid'
-
-// const initialState = {
-//   animals: [
-//     { id: uuid(), name: 'An1' },
-//     { id: uuid(), name: 'An2' },
-//     { id: uuid(), name: 'An3' },
-//     { id: uuid(), name: 'An4FA' }
-//   ]
-// }
 
 const initialState = {
   animals: []
 }
-
-// function getAnimalsData() {
-//   return new Promise((resolve, reject) => {
-//     // if (Auth.loggedIn()) {
-//     axios
-//       .get('/api/animals/')
-//       .then(res => {
-//         return resolve(res.data)
-//       })
-//       .catch(err => reject(err))
-//     // } else {
-//     //   resolve(' ');
-//     // }
-//   })
-// }
-
-// getAnimalsData().then(function(animalsData) {
-//   initialState.animals = animalsData
-//   console.log(initialState.animals)
-// })
 
 export default function(state = initialState, action) {
   switch (action.type) {
@@ -65,20 +34,3 @@ export default function(state = initialState, action) {
       return state
   }
 }
-
-//export const getAnimals = state => state.animals;
-// export const animals = initialState.animals;
-
-// export default (state = initialState, action) => {
-//     return {
-//       ...state
-//     }
-// }
-
-// export const getAnimals = () => {
-//   return fetchAnimals().then(res => {
-//     // initialState.animals = res.data
-//     console.log(res.data)
-//     return res.data
-//   })
-// }

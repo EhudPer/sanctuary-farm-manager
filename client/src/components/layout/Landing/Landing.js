@@ -1,10 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import { Button, Container } from 'reactstrap'
 import CssModule from './Landing.module.css'
 
 const Landing = () => {
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
   const history = useHistory()
+
+  useEffect(() => {
+    // If logged in and user navigates to Login page, should redirect them to home
+    if (isAuthenticated) {
+      history.push('/home')
+    }
+  }, [])
 
   function handleClick(route) {
     history.push('/' + route)

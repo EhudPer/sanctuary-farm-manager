@@ -1,4 +1,5 @@
 const router = require('express').Router()
+const jwtDecode = require('jwt-decode')
 
 // Item Model
 const Animal = require('../../models/Animal')
@@ -7,7 +8,8 @@ const Animal = require('../../models/Animal')
 // @desc   Get all animals
 // @access Public
 router.get('/', (req, res) => {
-  Animal.find()
+  const loggedInUserId = jwtDecode(req.headers.authorization).id
+  Animal.find({ user_id: loggedInUserId })
     .sort({ date: -1 })
     .then(animals => res.json(animals))
 })
@@ -25,8 +27,11 @@ router.get('/:id', (req, res) => {
 // @desc   Creat an animal
 // @access Public
 router.post('/', (req, res) => {
+  const loggedInUserId = jwtDecode(req.headers.authorization).id
+
   const newAnimal = new Animal({
-    name: req.body.name
+    name: req.body.name,
+    user_id: loggedInUserId
   })
 
   newAnimal.save().then(animal => res.json(animal))
