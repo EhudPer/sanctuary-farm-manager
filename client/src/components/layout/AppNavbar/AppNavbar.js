@@ -30,6 +30,7 @@ class AppNavbar extends Component {
 
   onLogoutClick = e => {
     e.preventDefault()
+    console.log(this.props.auth.isAuthenticated)
 
     this.props.logoutUser()
   }
@@ -59,7 +60,7 @@ class AppNavbar extends Component {
                 </NavItem>
               </Nav>
             </Collapse>
-            {true ? (
+            {this.props.auth.isAuthenticated ? (
               <Button
                 style={{
                   width: '150px',
@@ -85,8 +86,7 @@ AppNavbar.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth,
-  isAuthenticated: state.isAuthenticated
+  auth: state.auth
 })
 
 export default connect(mapStateToProps, { logoutUser })(AppNavbar)
