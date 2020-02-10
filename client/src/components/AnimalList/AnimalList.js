@@ -11,7 +11,11 @@ import {
   Form,
   FormGroup,
   Label,
-  Input
+  Input,
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
 } from 'reactstrap'
 import './AnimalList.css'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'

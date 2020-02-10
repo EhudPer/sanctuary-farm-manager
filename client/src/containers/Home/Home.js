@@ -17,6 +17,10 @@ class Home extends Component {
     this.props.history.push('/animals')
   }
 
+  onReleaseNotesClick = () => {
+    this.props.history.push('/release-notes')
+  }
+
   render() {
     const { user } = this.props.auth
     return (
@@ -38,6 +42,14 @@ class Home extends Component {
               className={CssModule['list-btn']}
             >
               Your Animals
+            </Button>
+          </div>
+          <div className={CssModule['list-btn-container']}>
+            <Button
+              onClick={this.onReleaseNotesClick}
+              className={CssModule['list-btn']}
+            >
+              Release Notes
             </Button>
           </div>
           {/* <Button
