@@ -17,6 +17,7 @@ import {
   DropdownMenu,
   DropdownItem
 } from 'reactstrap'
+import Swal from 'sweetalert2'
 import './AnimalList.css'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { connect } from 'react-redux'
@@ -45,8 +46,22 @@ class AnimalList extends Component {
     // this.props.fetchAnimals()
   }
 
-  onDeleteClick = _id => {
-    this.props.deleteAnimal(_id)
+  onDeleteClick = async _id => {
+    const res = await Swal.fire({
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this animal!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      confirmButtonColor: 'red',
+      cancelButtonText: 'No, keep it'
+    })
+
+    if (res.value) {
+      this.props.deleteAnimal(_id)
+    } else {
+      return
+    }
   }
 
   onSubmit = event => {
