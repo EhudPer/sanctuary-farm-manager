@@ -46,10 +46,10 @@ class AnimalList extends Component {
     // this.props.fetchAnimals()
   }
 
-  onDeleteClick = async _id => {
+  onDeleteClick = async (_id, animalName) => {
     const res = await Swal.fire({
       title: 'Are you sure?',
-      text: 'You will not be able to recover this animal!',
+      text: `You will not be able to recover ${animalName}!`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Yes, delete it!',
@@ -108,7 +108,7 @@ class AnimalList extends Component {
                       className="remove-btn"
                       color="danger"
                       size="sm"
-                      onClick={this.onDeleteClick.bind(this, _id)}
+                      onClick={this.onDeleteClick.bind(this, _id, name)}
                     >
                       Delete
                     </Button>
