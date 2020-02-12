@@ -15,10 +15,16 @@ import {
   Dropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem
+  DropdownItem,
+  Card,
+  CardImg,
+  CardText,
+  CardBody,
+  CardTitle,
+  CardSubtitle
 } from 'reactstrap'
 import Swal from 'sweetalert2'
-import './AnimalList.css'
+import CssModule from './AnimalList.module.css'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
@@ -29,10 +35,25 @@ import {
 } from '../../actions/animalActions'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router'
+import AddModal from '../layout/AddModal/AddModal'
+import catImg from '../../assets/cat.jpg'
+import dogImg from '../../assets/dog.jpg'
+import pigImg from '../../assets/pig.jpg'
+import cowImg from '../../assets/cow.jpg'
+import horseImg from '../../assets/horse.jpg'
+import donkeyImg from '../../assets/donkey.jpg'
 
 class AnimalList extends Component {
   state = {
-    modal: false
+    modal: false,
+    isDropdownOpen: false,
+    dropdownValue: 'Cat',
+    animalTypes: ['Cat', 'Dog', 'Pig', 'Cow', 'Horse', 'Donkey']
+  }
+
+  componentDidMount() {
+    this.props.getAnimals()
+    // this.props.fetchAnimals()
   }
 
   toggle = () => {
@@ -41,9 +62,14 @@ class AnimalList extends Component {
     })
   }
 
-  componentDidMount() {
-    this.props.getAnimals()
-    // this.props.fetchAnimals()
+  toggleDropdown = () => {
+    this.setState({
+      isDropdownOpen: !this.state.isDropdownOpen
+    })
+  }
+
+  changeDropdownValue = e => {
+    this.setState({ dropdownValue: e.currentTarget.textContent })
   }
 
   onDeleteClick = async (_id, animalName) => {
@@ -71,7 +97,8 @@ class AnimalList extends Component {
 
     const newAnimal = {
       // id: uuid(),
-      name: data.get('animalName')
+      name: data.get('animalName'),
+      type: this.state.dropdownValue
     }
 
     this.toggle()
@@ -85,11 +112,20 @@ class AnimalList extends Component {
 
   render() {
     const { animals } = this.props.animal
+    const animalCardImgStyle = {
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'center',
+      backgroundSize: '100%',
+      width: '100%',
+      paddingTop: '54.166666666667%',
+      height: '0',
+      borderRadius: '30px'
+    }
 
     return (
       <Container>
         <div>
-          <div className="header-and-button justify-content-between">
+          <div className={CssModule['header-and-button']}>
             <h4>Your farm animals</h4>
             <Button
               onClick={this.toggle}
@@ -99,9 +135,9 @@ class AnimalList extends Component {
               Add Animal
             </Button>
           </div>
-          <ListGroup>
+          {/* <ListGroup>
             <TransitionGroup className="animal-list">
-              {animals.map(({ _id, name }) => (
+              {animals.map(({ _id, name, type }) => (
                 <CSSTransition key={_id} timeout={500} classNames="fade">
                   <ListGroupItem>
                     <Button
@@ -112,49 +148,112 @@ class AnimalList extends Component {
                     >
                       Delete
                     </Button>
-                    {name}
+                    {type ? name + ' the ' + type : name}
                   </ListGroupItem>
                 </CSSTransition>
               ))}
             </TransitionGroup>
-          </ListGroup>
+          </ListGroup> */}
+          {/* <ListGroup> */}
+          {/* <div className="cards-container"> */}
+          <TransitionGroup className={CssModule['cards-container']}>
+            {animals.map(({ _id, name, type }) => {
+              // const typeLowered = type.toLowerCase()
+              return (
+                <CSSTransition key={_id} timeout={500} classNames="fade">
+                  {/* <Card>
+                    <CardImg
+                      top
+                      // width="100%"
+                      src={catImg}
+                      alt="Card image cap"
+                    />
+                    <CardBody>
+                      <CardTitle>{name}</CardTitle>
+                      <CardSubtitle>{type}</CardSubtitle>
+                      <CardText>
+                        Some quick example text to build on the card title and
+                        make up the bulk of the card's content.
+                      </CardText>
+                      <Button
+                        className="remove-btn"
+                        color="danger"
+                        size="sm"
+                        onClick={this.onDeleteClick.bind(this, _id, name)}
+                      >
+                        Delete
+                      </Button>
+                    </CardBody>
+                  </Card> */}
+                  <div className={CssModule['animal-card']}>
+                    {/* <div
+                    className={CssModule['animal-card-img']}
+                    // width="100%"
+                    alt="Card image cap"
+                  /> */}
+                    <div
+                      style={{
+                        ...animalCardImgStyle,
+                        // backgroundImage: `url(${require(`${'../../assets/' +
+                        //   typeLowered +
+                        //   '.jpg'}`)})`
+                        backgroundImage: `url(${
+                          type === 'Cat'
+                            ? catImg
+                            : type === 'Dog'
+                            ? dogImg
+                            : type === 'Pig'
+                            ? pigImg
+                            : type === 'Cow'
+                            ? cowImg
+                            : type === 'Horse'
+                            ? horseImg
+                            : type === 'Donkey'
+                            ? donkeyImg
+                            : null
+                        })`
+                      }}
+                    ></div>
+                    <div className={CssModule['animal-card-body']}>
+                      <div className={CssModule['animal-card-title']}>
+                        {name}
+                      </div>
+                      <div className={CssModule['animal-card-subtitle']}>
+                        {type}
+                      </div>
+                      {/* <div className="animal-card-text">
+                      Some quick example text to build on the card title and
+                      make up the bulk of the card's content.
+                    </div> */}
+                      <div className={CssModule['btns-container']}>
+                        <Button
+                          className="remove-btn"
+                          color="danger"
+                          size="md"
+                          onClick={this.onDeleteClick.bind(this, _id, name)}
+                        >
+                          Delete
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </CSSTransition>
+              )
+            })}
+          </TransitionGroup>
+          {/* </div> */}
+          {/* </ListGroup> */}
           <div>
-            <Modal
+            <AddModal
               isOpen={this.state.modal}
               toggle={this.toggle}
-              className="Modal"
-            >
-              <ModalHeader toggle={this.toggle}>Add Animal</ModalHeader>
-              <ModalBody>
-                {/* <label>Animal name:</label>
-                <input type="text" style={{ marginLeft: '15px' }} /> */}
-
-                <Form id="add-form" onSubmit={this.onSubmit}>
-                  <FormGroup>
-                    <Label for="animalName">Animal Name</Label>
-                    <Input
-                      type="text"
-                      name="animalName"
-                      id="name"
-                      placeholder="Add the new animal name "
-                    />
-                  </FormGroup>
-                </Form>
-              </ModalBody>
-              <ModalFooter>
-                <Button
-                  form="add-form"
-                  type="submit"
-                  color="primary"
-                  onClick={this.onSubmit}
-                >
-                  Add
-                </Button>{' '}
-                <Button color="secondary" onClick={this.toggle}>
-                  Cancel
-                </Button>
-              </ModalFooter>
-            </Modal>
+              submit={this.onSubmit}
+              dropdownOpen={this.state.isDropdownOpen}
+              toggleDropdown={this.toggleDropdown}
+              dropdownValue={this.state.dropdownValue}
+              changeDropdownValue={this.changeDropdownValue}
+              animalTypes={this.state.animalTypes}
+            />
           </div>
         </div>
       </Container>

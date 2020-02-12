@@ -31,6 +31,7 @@ router.post('/', (req, res) => {
 
   const newAnimal = new Animal({
     name: req.body.name,
+    type: req.body.type,
     user_id: loggedInUserId
   })
 
