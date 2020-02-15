@@ -227,8 +227,8 @@ class AnimalList extends Component {
                     </div> */}
                       <div className={CssModule['btns-container']}>
                         <Button
-                          className="remove-btn"
-                          color="danger"
+                          className={CssModule['remove-btn']}
+                          // color="danger"
                           size="md"
                           onClick={this.onDeleteClick.bind(this, _id, name)}
                         >

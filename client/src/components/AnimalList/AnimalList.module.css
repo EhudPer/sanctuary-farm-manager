@@ -12,7 +12,7 @@
   margin-bottom: 15px;
   width: 290px;
   height: 312px;
-  background-color: peru;
+  background-color: #c04000;
 }
 
 .cards-container {
@@ -52,6 +52,10 @@
   margin-top: 10px;
   display: flex;
   justify-content: center;
+}
+
+.remove-btn {
+  background-color: #ff0000;
 }
 
 @media (max-width: 991px) {
