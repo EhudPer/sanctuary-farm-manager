@@ -1,5 +1,8 @@
 const mongoose = require('mongoose')
-const { mongodbURI } = require('./secrets/mongo-keys')
+
+try {
+  const { mongodbURI } = require('./secrets/mongo-keys')
+} catch (err) {}
 const express = require('express')
 const bodyParser = require('body-parser')
 const path = require('path')
