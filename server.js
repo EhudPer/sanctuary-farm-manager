@@ -1,10 +1,14 @@
 const mongoose = require('mongoose')
 
-if (process.env.NODE_ENV.trim() === 'development') {
-  const { mongodbURI } = require('./secrets/mongo-keys')
-} else {
-  const mongodbURI = process.env.mongodbURI
-}
+// if (process.env.NODE_ENV.trim() === 'development') {
+//   const { mongodbURI } = require('./secrets/mongo-keys')
+// } else {
+//   const mongodbURI = process.env.mongodbURI
+// }
+const mongodbURI =
+  process.env.NODE_ENV.trim() === 'development'
+    ? require('./secrets/mongo-keys').mongodbURI
+    : process.env.mongodbURI
 
 const express = require('express')
 const bodyParser = require('body-parser')

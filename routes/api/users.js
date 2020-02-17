@@ -2,11 +2,15 @@ const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-if (process.env.NODE_ENV.trim() === 'development') {
-  const { secretOrKey } = require('../../secrets/mongo-keys')
-} else {
-  const secretOrKey = process.env.secretOrKey
-}
+// if (process.env.NODE_ENV.trim() === 'development') {
+//   const { secretOrKey } = require('../../secrets/mongo-keys')
+// } else {
+//   const secretOrKey = process.env.secretOrKey
+// }
+const secretOrKey =
+  process.env.NODE_ENV.trim() === 'development'
+    ? require('../../secrets/mongo-keys').secretOrKey
+    : process.env.secretOrKey
 
 // Load input validation
 const validateRegisterInput = require('../../validation/register')

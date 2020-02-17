@@ -3,11 +3,15 @@ const ExtractJwt = require('passport-jwt').ExtractJwt
 const mongoose = require('mongoose')
 const User = mongoose.model('users')
 const opts = {}
-if (process.env.NODE_ENV.trim() === 'development') {
-  const { secretOrKey } = require('../secrets/mongo-keys')
-} else {
-  const secretOrKey = process.env.secretOrKey
-}
+// if (process.env.NODE_ENV.trim() === 'development') {
+//   const { secretOrKey } = require('../secrets/mongo-keys')
+// } else {
+//   const secretOrKey = process.env.secretOrKey
+// }
+const secretOrKey =
+  process.env.NODE_ENV.trim() === 'development'
+    ? require('../secrets/mongo-keys').secretOrKey
+    : process.env.secretOrKey
 
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken()
 opts.secretOrKey = secretOrKey
