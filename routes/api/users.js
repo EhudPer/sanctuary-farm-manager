@@ -2,7 +2,9 @@ const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const { secretOrKey } = require('../../secrets/mongo-keys')
+try {
+  const { secretOrKey } = require('../../secrets/mongo-keys')
+} catch (err) {}
 
 // Load input validation
 const validateRegisterInput = require('../../validation/register')

@@ -2,8 +2,10 @@ const JwtStrategy = require('passport-jwt').Strategy
 const ExtractJwt = require('passport-jwt').ExtractJwt
 const mongoose = require('mongoose')
 const User = mongoose.model('users')
-const { secretOrKey } = require('../secrets/mongo-keys')
 const opts = {}
+try {
+  const { secretOrKey } = require('../secrets/mongo-keys')
+} catch (err) {}
 
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken()
 opts.secretOrKey = secretOrKey
