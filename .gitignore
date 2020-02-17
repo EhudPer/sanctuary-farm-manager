@@ -27,6 +27,7 @@ yarn-error.log*
 .nyc_output/
 coverage/
 node_modules/
+/secrets
 build
 npm-debug.log
 .env

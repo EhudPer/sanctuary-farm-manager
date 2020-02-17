@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const { mongodbURI } = require('./secrets/mongo-keys')
 const express = require('express')
 const bodyParser = require('body-parser')
 const path = require('path')
@@ -17,7 +18,7 @@ app.use(
 )
 
 //DB Config
-const db = require('./config/keys').mongodbURI
+const db = mongodbURI
 
 //Connect to mongo
 mongoose
