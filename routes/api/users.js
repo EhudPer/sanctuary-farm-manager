@@ -4,6 +4,8 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 if (process.env.NODE_ENV.trim() === 'development') {
   const { secretOrKey } = require('../../secrets/mongo-keys')
+} else {
+  const secretOrKey = process.env.secretOrKey
 }
 
 // Load input validation

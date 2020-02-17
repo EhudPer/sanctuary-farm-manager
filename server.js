@@ -1,8 +1,11 @@
 const mongoose = require('mongoose')
 
-try {
+if (process.env.NODE_ENV.trim() === 'development') {
   const { mongodbURI } = require('./secrets/mongo-keys')
-} catch (err) {}
+} else {
+  const mongodbURI = process.env.mongodbURI
+}
+
 const express = require('express')
 const bodyParser = require('body-parser')
 const path = require('path')
@@ -43,7 +46,7 @@ const port = process.env.PORT || 5000
 
 app.listen(port, () => console.log(`Server started on port ${port}`))
 
-if (process.env.NODE_ENV.trim() === 'development') {
+if (process.env.NODE_ENV.trim() === 'production') {
   app.use(express.static(path.join(__dirname, 'client/build')))
 
   app.get('*', (req, res) => {

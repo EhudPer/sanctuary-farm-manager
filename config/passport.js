@@ -5,6 +5,8 @@ const User = mongoose.model('users')
 const opts = {}
 if (process.env.NODE_ENV.trim() === 'development') {
   const { secretOrKey } = require('../secrets/mongo-keys')
+} else {
+  const secretOrKey = process.env.secretOrKey
 }
 
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken()
