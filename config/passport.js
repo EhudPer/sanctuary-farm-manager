@@ -3,7 +3,7 @@ const ExtractJwt = require('passport-jwt').ExtractJwt
 const mongoose = require('mongoose')
 const User = mongoose.model('users')
 const opts = {}
-if (process.env.NODE_ENV.trim() === 'production') {
+if (process.env.NODE_ENV.trim() === 'development') {
   const { secretOrKey } = require('../secrets/mongo-keys')
 }
 

@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-if (process.env.NODE_ENV.trim() === 'production') {
+if (process.env.NODE_ENV.trim() === 'development') {
   const { secretOrKey } = require('../../secrets/mongo-keys')
 }
 
