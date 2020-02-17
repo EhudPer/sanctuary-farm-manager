@@ -3,9 +3,9 @@ const ExtractJwt = require('passport-jwt').ExtractJwt
 const mongoose = require('mongoose')
 const User = mongoose.model('users')
 const opts = {}
-try {
+if (process.env.NODE_ENV.trim() === 'production') {
   const { secretOrKey } = require('../secrets/mongo-keys')
-} catch (err) {}
+}
 
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken()
 opts.secretOrKey = secretOrKey
