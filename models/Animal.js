@@ -16,6 +16,10 @@ const AnimalSchema = new Schema({
     type: String,
     required: true
   },
+  image_public_url: {
+    type: String,
+    required: false
+  },
   date: {
     type: Date,
     default: Date.now

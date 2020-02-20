@@ -34,3 +34,4 @@ npm-debug.log
 .DS_Store
 package-lock.json
 test/*.log
+gcpconfig.json

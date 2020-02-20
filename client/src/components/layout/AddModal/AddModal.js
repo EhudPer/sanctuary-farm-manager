@@ -10,6 +10,7 @@ import {
   ModalFooter,
   Form,
   FormGroup,
+  FormText,
   Label,
   Input,
   Dropdown,
@@ -34,9 +35,6 @@ const AddModal = props => {
       <Modal isOpen={props.isOpen} toggle={props.toggle} className="Modal">
         <ModalHeader toggle={props.toggle}>Add Animal</ModalHeader>
         <ModalBody>
-          {/* <label>Animal name:</label>
-                <input type="text" style={{ marginLeft: '15px' }} /> */}
-
           <Form id="add-form" onSubmit={props.submit}>
             <FormGroup>
               <Label for="animalName">Animal Name</Label>
@@ -54,21 +52,15 @@ const AddModal = props => {
                 toggle={props.toggleDropdown}
               >
                 <DropdownToggle caret>{props.dropdownValue}</DropdownToggle>
-                <DropdownMenu>
-                  {/* <DropdownItem header>Type</DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem onClick={props.changeDropdownValue}>
-                    Cat
-                  </DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>Dog</DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>Pig</DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>Cow</DropdownItem> */}
-                  {animalTypesJsx}
-                </DropdownMenu>
+                <DropdownMenu>{animalTypesJsx}</DropdownMenu>
               </Dropdown>
+            </FormGroup>
+            <FormGroup>
+              <Label for="animalImg">Animal Image</Label>
+              <Input type="file" name="animalImg" id="animalImg" />
+              <FormText color="muted">
+                Choose a file for the animal's image from your computer.
+              </FormText>
             </FormGroup>
           </Form>
         </ModalBody>

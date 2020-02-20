@@ -33,6 +33,7 @@ import {
   deleteAnimal,
   addAnimal
 } from '../../actions/animalActions'
+import { addAnimalImgToGcp } from '../../actions/gcpActions'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router'
 import AddModal from '../layout/AddModal/AddModal'
@@ -90,36 +91,52 @@ class AnimalList extends Component {
     }
   }
 
-  onSubmit = event => {
+  onSubmit = async event => {
     event.preventDefault()
 
     const data = new FormData(document.getElementById('add-form'))
 
-    const newAnimal = {
-      // id: uuid(),
-      name: data.get('animalName'),
-      type: this.state.dropdownValue
-    }
+    const animalImg = data.get('animalImg')
 
     this.toggle()
 
-    this.props.addAnimal(newAnimal)
-  }
+    let animalImgPublicUrl = null
 
-  // try = () => {
-  //   this.props.history.push('/animals/add')
-  // }
+    if (animalImg.name !== '') {
+      const addAnimalImgToGcpRes = await this.props.addAnimalImgToGcp(animalImg)
+      animalImgPublicUrl = addAnimalImgToGcpRes.data
+    }
+
+    const newAnimal = {
+      name: data.get('animalName'),
+      type: this.state.dropdownValue,
+      imgPublicUrl: animalImgPublicUrl
+    }
+
+    this.props.addAnimal(newAnimal)
+
+    Swal.fire({
+      title: 'Animal Added Successfully!',
+      text: animalImgPublicUrl
+        ? `Your animal's image public url to use from anywhere is:\n ${animalImgPublicUrl}`
+        : '',
+      icon: 'success',
+      confirmButtonText: 'Ok',
+      confirmButtonColor: 'green'
+    })
+  }
 
   render() {
     const { animals } = this.props.animal
     const animalCardImgStyle = {
       backgroundRepeat: 'no-repeat',
       backgroundPosition: 'center',
-      backgroundSize: '100%',
+      // backgroundSize: '100% 100%',
+      backgroundSize: 'contain',
       width: '100%',
       paddingTop: '54.166666666667%',
-      height: '0',
-      borderRadius: '30px'
+      height: '0'
+      // borderRadius: '30px'
     }
 
     return (
@@ -135,70 +152,20 @@ class AnimalList extends Component {
               Add Animal
             </Button>
           </div>
-          {/* <ListGroup>
-            <TransitionGroup className="animal-list">
-              {animals.map(({ _id, name, type }) => (
-                <CSSTransition key={_id} timeout={500} classNames="fade">
-                  <ListGroupItem>
-                    <Button
-                      className="remove-btn"
-                      color="danger"
-                      size="sm"
-                      onClick={this.onDeleteClick.bind(this, _id, name)}
-                    >
-                      Delete
-                    </Button>
-                    {type ? name + ' the ' + type : name}
-                  </ListGroupItem>
-                </CSSTransition>
-              ))}
-            </TransitionGroup>
-          </ListGroup> */}
-          {/* <ListGroup> */}
-          {/* <div className="cards-container"> */}
+
           <TransitionGroup className={CssModule['cards-container']}>
-            {animals.map(({ _id, name, type }) => {
-              // const typeLowered = type.toLowerCase()
+            {animals.map(({ _id, name, type, image_public_url }) => {
               return (
                 <CSSTransition key={_id} timeout={500} classNames="fade">
-                  {/* <Card>
-                    <CardImg
-                      top
-                      // width="100%"
-                      src={catImg}
-                      alt="Card image cap"
-                    />
-                    <CardBody>
-                      <CardTitle>{name}</CardTitle>
-                      <CardSubtitle>{type}</CardSubtitle>
-                      <CardText>
-                        Some quick example text to build on the card title and
-                        make up the bulk of the card's content.
-                      </CardText>
-                      <Button
-                        className="remove-btn"
-                        color="danger"
-                        size="sm"
-                        onClick={this.onDeleteClick.bind(this, _id, name)}
-                      >
-                        Delete
-                      </Button>
-                    </CardBody>
-                  </Card> */}
                   <div className={CssModule['animal-card']}>
-                    {/* <div
-                    className={CssModule['animal-card-img']}
-                    // width="100%"
-                    alt="Card image cap"
-                  /> */}
                     <div
                       style={{
                         ...animalCardImgStyle,
-                        // backgroundImage: `url(${require(`${'../../assets/' +
-                        //   typeLowered +
-                        //   '.jpg'}`)})`
+
                         backgroundImage: `url(${
-                          type === 'Cat'
+                          image_public_url
+                            ? image_public_url
+                            : type === 'Cat'
                             ? catImg
                             : type === 'Dog'
                             ? dogImg
@@ -221,10 +188,7 @@ class AnimalList extends Component {
                       <div className={CssModule['animal-card-subtitle']}>
                         {type}
                       </div>
-                      {/* <div className="animal-card-text">
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
-                    </div> */}
+
                       <div className={CssModule['btns-container']}>
                         <Button
                           className={CssModule['remove-btn']}
@@ -241,8 +205,7 @@ class AnimalList extends Component {
               )
             })}
           </TransitionGroup>
-          {/* </div> */}
-          {/* </ListGroup> */}
+
           <div>
             <AddModal
               isOpen={this.state.modal}
@@ -263,7 +226,6 @@ class AnimalList extends Component {
 
 AnimalList.propTypes = {
   getAnimals: PropTypes.func.isRequired,
-  // fetchAnimals: PropTypes.func.isRequired,
   animal: PropTypes.object.isRequired
 }
 
@@ -271,24 +233,9 @@ const mapStateToProps = state => ({
   animal: state.animal
 })
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     fetchAnimals: () => {
-//       dispatch(fetchAnimals())
-//     }
-//   }
-// }
-
-// export default connect(mapStateToProps, mapDispatchToProps)(List);
-// export default compose(
-//   withRouter,
-//   connect(mapStateToProps, { getAnimals }, mapDispatchToProps)
-// )(AnimalList)
-
-// export default AnimalList
 export default connect(
   mapStateToProps,
   // mapDispatchToProps,
-  { getAnimals, deleteAnimal, addAnimal }
+  { getAnimals, deleteAnimal, addAnimal, addAnimalImgToGcp }
   // mapDispatchToProps
 )(AnimalList)

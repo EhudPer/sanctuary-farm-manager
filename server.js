@@ -1,10 +1,5 @@
 const mongoose = require('mongoose')
 
-// if (process.env.NODE_ENV.trim() === 'development') {
-//   const { mongodbURI } = require('./secrets/mongo-keys')
-// } else {
-//   const mongodbURI = process.env.mongodbURI
-// }
 const mongodbURI =
   process.env.NODE_ENV.trim() === 'development'
     ? require('./secrets/mongo-keys').mongodbURI
@@ -17,6 +12,7 @@ const passport = require('passport')
 
 const users = require('./routes/api/users')
 const animals = require('./routes/api/animals')
+const index = require('./routes/api/index')
 
 const app = express()
 
@@ -26,6 +22,9 @@ app.use(
     extended: true
   })
 )
+
+//Create gcpconfig.json file with the private key for google cloud platform.
+require('child_process').fork('./gcpSetup.js')
 
 //DB Config
 const db = mongodbURI
@@ -45,6 +44,7 @@ require('./config/passport')(passport)
 // Use routes
 app.use('/api/users', users)
 app.use('/api/animals', animals)
+app.use('/api/index', index)
 
 const port = process.env.PORT || 5000
 
