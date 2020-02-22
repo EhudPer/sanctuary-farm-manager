@@ -45,3 +45,21 @@ exports.sendUploadToGCS = (req, res, next) => {
 
   stream.end(req.file.buffer)
 }
+
+exports.deleteImgFromGCP = (req, res, next) => {
+  if (!req.body.fileName) {
+    return next()
+  }
+
+  const bucketName = req.body.bucketName || DEFAULT_BUCKET_NAME
+  const bucket = storage.bucket(bucketName)
+  const gcsFileName = req.body.fileName
+  const file = bucket.file(gcsFileName)
+
+  file.delete(function(err, apiResponse) {
+    if (!err) {
+      req.isSuccess = true
+    }
+    return next()
+  })
+}

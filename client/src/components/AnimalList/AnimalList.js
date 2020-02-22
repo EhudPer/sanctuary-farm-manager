@@ -33,7 +33,10 @@ import {
   deleteAnimal,
   addAnimal
 } from '../../actions/animalActions'
-import { addAnimalImgToGcp } from '../../actions/gcpActions'
+import {
+  addAnimalImgToGcp,
+  deleteAnimalImgFromGcp
+} from '../../actions/gcpActions'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router'
 import AddModal from '../layout/AddModal/AddModal'
@@ -73,7 +76,7 @@ class AnimalList extends Component {
     this.setState({ dropdownValue: e.currentTarget.textContent })
   }
 
-  onDeleteClick = async (_id, animalName) => {
+  onDeleteClick = async (_id, animalName, imgPublicUrl) => {
     const res = await Swal.fire({
       title: 'Are you sure?',
       text: `You will not be able to recover ${animalName}!`,
@@ -85,6 +88,24 @@ class AnimalList extends Component {
     })
 
     if (res.value) {
+      if (imgPublicUrl) {
+        const imgName = imgPublicUrl.substring(
+          imgPublicUrl.lastIndexOf('/') + 1
+        )
+
+        const deleteAnimalImgFromGcpRes = await this.props.deleteAnimalImgFromGcp(
+          imgName
+        )
+
+        if (deleteAnimalImgFromGcpRes.status !== 200) {
+          return Swal.fire({
+            title: 'Animal was not deleted!',
+            text: `Please try deleting ${animalName} later...`,
+            icon: 'error'
+          })
+        }
+      }
+
       this.props.deleteAnimal(_id)
     } else {
       return
@@ -194,7 +215,12 @@ class AnimalList extends Component {
                           className={CssModule['remove-btn']}
                           // color="danger"
                           size="md"
-                          onClick={this.onDeleteClick.bind(this, _id, name)}
+                          onClick={this.onDeleteClick.bind(
+                            this,
+                            _id,
+                            name,
+                            image_public_url
+                          )}
                         >
                           Delete
                         </Button>
@@ -236,6 +262,12 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   // mapDispatchToProps,
-  { getAnimals, deleteAnimal, addAnimal, addAnimalImgToGcp }
+  {
+    getAnimals,
+    deleteAnimal,
+    addAnimal,
+    addAnimalImgToGcp,
+    deleteAnimalImgFromGcp
+  }
   // mapDispatchToProps
 )(AnimalList)

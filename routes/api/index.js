@@ -24,4 +24,16 @@ router.post(
   }
 )
 
+router.delete(
+  '/delete-gcp-img',
+  gcsMiddlewares.deleteImgFromGCP,
+  (req, res, next) => {
+    if (req.body.fileName && req.isSuccess) {
+      return res.status(200).send('animals img deleted successfully')
+    }
+
+    return res.status(500).send('Unable to delete animal image from gcp')
+  }
+)
+
 module.exports = router
