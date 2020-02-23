@@ -17,6 +17,7 @@ import Login from '../auth/Login/Login'
 import PrivateRoute from '../../components/private-route/PrivateRoute'
 import Home from '../Home/Home'
 import AnimalList from '../../components/AnimalList/AnimalList'
+import AnimalDetails from '../AnimalDetails/AnimalDetails'
 import ReleaseNotes from '../../containers/ReleaseNotes/ReleaseNotes'
 
 // Check for token to keep user logged in
@@ -84,6 +85,11 @@ export default class App extends Component {
               <Switch>
                 <PrivateRoute exact path="/home" component={Home} />
                 <PrivateRoute exact path="/animals" component={AnimalList} />
+                <PrivateRoute
+                  exact
+                  path="/animal/:id"
+                  component={AnimalDetails}
+                />
                 <PrivateRoute
                   exact
                   path="/release-notes"

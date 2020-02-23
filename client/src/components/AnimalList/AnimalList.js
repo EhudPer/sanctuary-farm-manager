@@ -112,6 +112,10 @@ class AnimalList extends Component {
     }
   }
 
+  onDetailsClick = async _id => {
+    this.props.history.push(`/animal/${_id}`)
+  }
+
   onSubmit = async event => {
     event.preventDefault()
 
@@ -211,6 +215,13 @@ class AnimalList extends Component {
                       </div>
 
                       <div className={CssModule['btns-container']}>
+                        <Button
+                          className={CssModule['details-btn']}
+                          size="md"
+                          onClick={this.onDetailsClick.bind(this, _id)}
+                        >
+                          Details
+                        </Button>
                         <Button
                           className={CssModule['remove-btn']}
                           // color="danger"

@@ -58,6 +58,10 @@
   background-color: #ff0000;
 }
 
+.details-btn {
+  background-color: green;
+}
+
 @media (max-width: 991px) {
   .cards-container {
     grid-template-columns: auto auto;

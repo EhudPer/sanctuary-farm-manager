@@ -1,6 +1,6 @@
 {
   "name": "sanctuary-farm-manager",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "manage your sanctuary farm easily",
   "main": "server.js",
   "scripts": {
