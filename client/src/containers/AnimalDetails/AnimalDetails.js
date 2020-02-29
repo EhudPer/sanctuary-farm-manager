@@ -40,7 +40,7 @@ const AnimalDetails = () => {
   }
 
   return (
-    <Container>
+    <Container className={CssModule.container}>
       <div className={CssModule['header-and-button']}>
         <h4>Animal Details</h4>
         <Button

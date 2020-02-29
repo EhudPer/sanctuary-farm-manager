@@ -12,7 +12,8 @@
   margin-bottom: 15px;
   width: 290px;
   height: 312px;
-  background-color: #539dc2;
+  /* background-color: #539dc2; */
+  background-color: lightgray;
 }
 
 .cards-container {

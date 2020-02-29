@@ -14,8 +14,8 @@ import {
   Container
 } from 'reactstrap'
 import CssModule from '../../layout/AppNavbar/AppNavbar.module.css'
-import logo from '../../../assets/logo.jpg'
-import App from '../../../containers/App/App'
+// import logo from '../../../assets/logo.jpg'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class AppNavbar extends Component {
   state = {
@@ -49,8 +49,9 @@ class AppNavbar extends Component {
         <Navbar color="dark" dark expand="sm" className="mb-5">
           <Container>
             <NavbarBrand className={CssModule['navbar-brand']} href="/">
-              <img className={CssModule['logo-img']} src={logo} />
-              Sanctuary Farm Manager
+              {/* <img className={CssModule['logo-img']} src={logo} /> */}
+              <FontAwesomeIcon icon="dove" className={CssModule.logo} />
+              <span>Sanctuary Farm Manager</span>
             </NavbarBrand>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>

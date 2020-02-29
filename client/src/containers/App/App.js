@@ -10,6 +10,9 @@ import { Provider } from 'react-redux'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faDove } from '@fortawesome/free-solid-svg-icons'
+
 import AppNavbar from '../../components/layout/AppNavbar/AppNavbar'
 import Landing from '../../components/layout/Landing/Landing'
 import Register from '../auth/Register/Register'
@@ -19,6 +22,8 @@ import Home from '../Home/Home'
 import AnimalList from '../../components/AnimalList/AnimalList'
 import AnimalDetails from '../AnimalDetails/AnimalDetails'
 import ReleaseNotes from '../../containers/ReleaseNotes/ReleaseNotes'
+
+library.add(faDove)
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
