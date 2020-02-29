@@ -62,6 +62,14 @@ const AddModal = props => {
                 Choose a file for the animal's image from your computer.
               </FormText>
             </FormGroup>
+            <FormGroup>
+              <Label for="animalDateOfBirth">Animal Date Of Birth</Label>
+              <Input
+                type="date"
+                name="animalDateOfBirth"
+                id="animalDateOfBirth"
+              />
+            </FormGroup>
           </Form>
         </ModalBody>
         <ModalFooter>

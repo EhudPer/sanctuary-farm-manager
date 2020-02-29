@@ -20,6 +20,10 @@ const AnimalSchema = new Schema({
     type: String,
     required: false
   },
+  date_of_birth: {
+    type: Date,
+    required: false
+  },
   date: {
     type: Date,
     default: Date.now

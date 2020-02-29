@@ -4,6 +4,7 @@ import { getAnimalById, resetCurrentAnimal } from '../../actions/animalActions'
 import { useHistory, useParams } from 'react-router-dom'
 import { Container, Button } from 'reactstrap'
 import CssModule from './AnimalDetails.module.css'
+import moment from 'moment'
 
 import catImg from '../../assets/cat.jpg'
 import dogImg from '../../assets/dog.jpg'
@@ -86,15 +87,24 @@ const AnimalDetails = () => {
             <div>
               Animal Type: <span>{' ' + animal.type}</span>
             </div>
-            {/* </div> */}
-            {/* <div className={CssModule['pair-container']}>
-              <div>
-                Animal Name: <span>{' ' + animal.name}</span>
-              </div>
-              <div>
-                Animal Type: <span>{' ' + animal.type}</span>
-              </div>
-            </div> */}
+            <div>
+              Animal Date Of Birth:{' '}
+              {animal.date_of_birth ? (
+                <span>
+                  {moment(animal.date_of_birth).format('DD MMMM YYYY')}
+                </span>
+              ) : (
+                <span>Unknown</span>
+              )}
+            </div>
+            <div>
+              Animal Age:{' '}
+              {animal.date_of_birth ? (
+                <span>{moment().diff(animal.date_of_birth, 'years')}</span>
+              ) : (
+                <span>Unknown</span>
+              )}
+            </div>
           </div>
         </div>
       ) : (

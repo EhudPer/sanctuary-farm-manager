@@ -33,6 +33,7 @@ router.post('/', (req, res) => {
     name: req.body.name,
     type: req.body.type,
     image_public_url: req.body.imgPublicUrl,
+    date_of_birth: req.body.dateOfBirth,
     user_id: loggedInUserId
   })
 

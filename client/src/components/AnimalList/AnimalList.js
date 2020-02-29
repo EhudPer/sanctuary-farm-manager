@@ -24,6 +24,7 @@ import {
   CardSubtitle
 } from 'reactstrap'
 import Swal from 'sweetalert2'
+import moment from 'moment'
 import CssModule from './AnimalList.module.css'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { connect } from 'react-redux'
@@ -135,7 +136,11 @@ class AnimalList extends Component {
     const newAnimal = {
       name: data.get('animalName'),
       type: this.state.dropdownValue,
-      imgPublicUrl: animalImgPublicUrl
+      imgPublicUrl: animalImgPublicUrl,
+      dateOfBirth:
+        data.get('animalDateOfBirth') !== ''
+          ? data.get('animalDateOfBirth')
+          : null
     }
 
     this.props.addAnimal(newAnimal)
@@ -179,68 +184,77 @@ class AnimalList extends Component {
           </div>
 
           <TransitionGroup className={CssModule['cards-container']}>
-            {animals.map(({ _id, name, type, image_public_url }) => {
-              return (
-                <CSSTransition key={_id} timeout={500} classNames="fade">
-                  <div className={CssModule['animal-card']}>
-                    <div
-                      style={{
-                        ...animalCardImgStyle,
+            {animals.map(
+              ({ _id, name, type, image_public_url, date_of_birth }) => {
+                return (
+                  <CSSTransition key={_id} timeout={500} classNames="fade">
+                    <div className={CssModule['animal-card']}>
+                      <div
+                        style={{
+                          ...animalCardImgStyle,
 
-                        backgroundImage: `url(${
-                          image_public_url
-                            ? image_public_url
-                            : type === 'Cat'
-                            ? catImg
-                            : type === 'Dog'
-                            ? dogImg
-                            : type === 'Pig'
-                            ? pigImg
-                            : type === 'Cow'
-                            ? cowImg
-                            : type === 'Horse'
-                            ? horseImg
-                            : type === 'Donkey'
-                            ? donkeyImg
-                            : null
-                        })`
-                      }}
-                    ></div>
-                    <div className={CssModule['animal-card-body']}>
-                      <div className={CssModule['animal-card-title']}>
-                        {name}
-                      </div>
-                      <div className={CssModule['animal-card-subtitle']}>
-                        {type}
-                      </div>
-
-                      <div className={CssModule['btns-container']}>
-                        <Button
-                          className={CssModule['details-btn']}
-                          size="md"
-                          onClick={this.onDetailsClick.bind(this, _id)}
-                        >
-                          Details
-                        </Button>
-                        <Button
-                          className={CssModule['remove-btn']}
-                          // color="danger"
-                          size="md"
-                          onClick={this.onDeleteClick.bind(
-                            this,
-                            _id,
-                            name,
+                          backgroundImage: `url(${
                             image_public_url
-                          )}
-                        >
-                          Delete
-                        </Button>
+                              ? image_public_url
+                              : type === 'Cat'
+                              ? catImg
+                              : type === 'Dog'
+                              ? dogImg
+                              : type === 'Pig'
+                              ? pigImg
+                              : type === 'Cow'
+                              ? cowImg
+                              : type === 'Horse'
+                              ? horseImg
+                              : type === 'Donkey'
+                              ? donkeyImg
+                              : null
+                          })`
+                        }}
+                      ></div>
+                      <div className={CssModule['animal-card-body']}>
+                        <div className={CssModule['animal-card-title']}>
+                          {name}
+                        </div>
+                        <div className={CssModule['animal-card-subtitle']}>
+                          {type}
+                        </div>
+
+                        <div className={CssModule['animal-card-age']}>
+                          {date_of_birth
+                            ? moment().diff(date_of_birth, 'years')
+                            : 'unknown'}{' '}
+                          years old
+                        </div>
+
+                        <div className={CssModule['btns-container']}>
+                          <Button
+                            className={CssModule['details-btn']}
+                            size="md"
+                            onClick={this.onDetailsClick.bind(this, _id)}
+                          >
+                            Details
+                          </Button>
+                          <Button
+                            className={CssModule['remove-btn']}
+                            // color="danger"
+                            size="md"
+                            onClick={this.onDeleteClick.bind(
+                              this,
+                              _id,
+                              name,
+                              image_public_url
+                            )}
+                          >
+                            Delete
+                          </Button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </CSSTransition>
-              )
-            })}
+                  </CSSTransition>
+                )
+              }
+            )}
           </TransitionGroup>
 
           <div>
