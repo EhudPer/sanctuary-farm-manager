@@ -47,6 +47,15 @@ export const addAnimal = newAnimal => {
   }
 }
 
+export const updateAnimal = animalToUpdate => {
+  return async dispatch => {
+    return dispatch({
+      type: UPDATE_ANIMAL,
+      payload: await axios.put(`${url}${animalToUpdate._id}`, animalToUpdate)
+    })
+  }
+}
+
 export const resetCurrentAnimal = () => {
   return async dispatch => {
     return dispatch({

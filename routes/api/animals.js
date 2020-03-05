@@ -46,7 +46,12 @@ router.post('/', (req, res) => {
 router.put('/:id', (req, res) => {
   Animal.findById(req.params.id).then(animal => {
     animal
-      .updateOne({ name: req.body.name })
+      .updateOne({
+        name: req.body.name,
+        type: req.body.type,
+        image_public_url: req.body.imgPublicUrl,
+        date_of_birth: req.body.dateOfBirth
+      })
       .then(() => res.json({ success: true }))
       // return 404 if not found
       .catch(err => res.status(404).json({ success: false }))

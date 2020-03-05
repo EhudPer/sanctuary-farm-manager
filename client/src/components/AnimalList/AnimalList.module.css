@@ -63,10 +63,17 @@
 
 .remove-btn {
   background-color: #ff0000;
+  width: 70px;
 }
 
 .details-btn {
   background-color: green;
+  width: 70px;
+}
+
+.edit-btn {
+  background-color: yellowgreen;
+  width: 70px;
 }
 
 @media (max-width: 991px) {

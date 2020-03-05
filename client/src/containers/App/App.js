@@ -21,6 +21,7 @@ import PrivateRoute from '../../components/private-route/PrivateRoute'
 import Home from '../Home/Home'
 import AnimalList from '../../components/AnimalList/AnimalList'
 import AnimalDetails from '../AnimalDetails/AnimalDetails'
+import AnimalEdit from '../AnimalEdit/AnimalEdit'
 import ReleaseNotes from '../../containers/ReleaseNotes/ReleaseNotes'
 
 library.add(faDove)
@@ -56,37 +57,17 @@ export default class App extends Component {
           <div className="App">
             <div>
               <AppNavbar />
-              {/* <AnimalList /> */}
             </div>
-
-            {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
-            {/*<div style={{ paddingTop: "90px" }}>        */}
             <div>
-              {/* <Switch> */}
-              {/* <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/users">
-            <Users />
-          </Route>*/}
               <Route exact path="/">
-                {/* <Home /> */}
                 <Landing />
               </Route>
-              {/* <Route exact path="/" component={AnimalList} /> */}
-              {/* <Route path="/animals/add" component={AddAnimal} /> */}
-              {/* <Route path="/animals/edit" component={EditAnimal} /> */}
               <Route exact path="/register">
                 <Register />
               </Route>
               <Route exact path="/login">
                 <Login />
               </Route>
-              {/* </Switch> */}
-              {/* <Route exact path="/home">
-                <Home />
-              </Route> */}
               <Switch>
                 <PrivateRoute exact path="/home" component={Home} />
                 <PrivateRoute exact path="/animals" component={AnimalList} />
@@ -94,6 +75,11 @@ export default class App extends Component {
                   exact
                   path="/animal/:id"
                   component={AnimalDetails}
+                />
+                <PrivateRoute
+                  exact
+                  path="/animal/edit/:id"
+                  component={AnimalEdit}
                 />
                 <PrivateRoute
                   exact

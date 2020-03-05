@@ -1,5 +1,6 @@
 const releaseNotes = `
 Author: Ehud Perlman
+\nVersion 1.0.6:\n* - Added animal edit page.
 \nVersion 1.0.5:\n* - Added animal date of birth and animal age.
 \nVersion 1.0.4:\n* - Added basic animal details page.
 \nVersion 1.0.3:\n* - Added a feature that a user can upload it's own picture when creating an animal.
