@@ -45,6 +45,7 @@
   border-radius: 30px;
   padding: 10px;
   background-color: darkgray;
+  border: 1px solid brown;
   overflow: auto;
 }
 

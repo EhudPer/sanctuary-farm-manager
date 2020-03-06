@@ -246,6 +246,23 @@ const AnimalEdit = () => {
               </FormGroup>
               <FormGroup>
                 <Label for="animalImg">Animal Image</Label>
+
+                <FormGroup check>
+                  <Label for="keepCurrentImg" check>
+                    <Input
+                      onChange={() => {
+                        toggleIsUploadDisabled()
+                      }}
+                      type="checkbox"
+                      name="keepCurrentImg"
+                      id="keepCurrentImg"
+                      defaultChecked
+                    />{' '}
+                    Keep Current Image
+                  </Label>
+                </FormGroup>
+                <br />
+
                 <Input
                   type="file"
                   name="animalImg"
@@ -256,21 +273,7 @@ const AnimalEdit = () => {
                   Choose a file for the animal's image from your computer.
                 </FormText>
               </FormGroup>
-              <FormGroup check>
-                <Label for="keepCurrentImg" check>
-                  <Input
-                    onChange={() => {
-                      toggleIsUploadDisabled()
-                    }}
-                    type="checkbox"
-                    name="keepCurrentImg"
-                    id="keepCurrentImg"
-                    defaultChecked
-                  />{' '}
-                  Keep Current Image
-                </Label>
-              </FormGroup>
-              <br />
+
               <FormGroup>
                 <Label for="animalDateOfBirth">Animal Date Of Birth</Label>
                 <Input
