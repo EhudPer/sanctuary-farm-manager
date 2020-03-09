@@ -27,3 +27,18 @@ h4 {
   opacity: 0.01;
   transition: opacity 1000ms ease-in;
 }
+
+.navbar {
+  position: fixed;
+  width: 100%;
+}
+
+.non-navbar-content {
+  padding-top: 122px;
+}
+
+@media (max-width: 559px) {
+  .non-navbar-content {
+    padding-top: 170px;
+  }
+}

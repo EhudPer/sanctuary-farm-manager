@@ -58,7 +58,7 @@ export default class App extends Component {
             <div>
               <AppNavbar />
             </div>
-            <div>
+            <div className="non-navbar-content">
               <Route exact path="/">
                 <Landing />
               </Route>
