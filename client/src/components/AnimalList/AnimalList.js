@@ -151,9 +151,7 @@ class AnimalList extends Component {
 
     Swal.fire({
       title: 'Animal Added Successfully!',
-      text: animalImgPublicUrl
-        ? `Your animal's image public url to use from anywhere is:\n ${animalImgPublicUrl}`
-        : '',
+      text: `${data.get('animalName')} the ${this.state.dropdownValue}`,
       icon: 'success',
       confirmButtonText: 'Ok',
       confirmButtonColor: 'green'

@@ -235,6 +235,7 @@ const AnimalEdit = () => {
                   id="name"
                   defaultValue={animal.name}
                   placeholder="Animal name"
+                  maxLength="10"
                 />
               </FormGroup>
               <FormGroup>

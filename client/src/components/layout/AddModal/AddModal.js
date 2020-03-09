@@ -43,6 +43,7 @@ const AddModal = props => {
                 name="animalName"
                 id="name"
                 placeholder="Add the new animal name "
+                maxLength="10"
               />
             </FormGroup>
             <FormGroup>
