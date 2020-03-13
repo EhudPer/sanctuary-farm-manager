@@ -40,7 +40,7 @@ import {
 } from '../../actions/gcpActions'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router'
-import AddModal from '../layout/AddModal/AddModal'
+import AddModal from '../../components/layout/AddModal/AddModal'
 import catImg from '../../assets/cat.jpg'
 import dogImg from '../../assets/dog.jpg'
 import pigImg from '../../assets/pig.jpg'
