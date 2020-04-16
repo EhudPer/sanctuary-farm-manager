@@ -55,7 +55,7 @@ export default class App extends Component {
       <Provider store={store}>
         <Router>
           <div className="App">
-            <div>
+            <div className="navbar-content">
               <AppNavbar />
             </div>
             <div className="non-navbar-content">

@@ -3,8 +3,25 @@
   justify-content: center;
 }
 
-.btns-container {
+/* .btns-container {
   display: flex;
   align-items: center;
   flex-direction: column;
+} */
+
+.btns-container {
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+  /* flex-direction: column; */
+}
+
+@media (max-width: 367px) {
+  .btns-container {
+    align-items: center;
+    flex-direction: column;
+  }
+  .btn {
+    margin-bottom: 15px !important;
+  }
 }

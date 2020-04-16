@@ -6,19 +6,32 @@
 } */
 
 .navbar-brand {
-  /* font-size: 18px; */
-  font-size: 22px;
+  font-size: 20px;
 }
 
 .logo {
   font-size: 45px;
 }
 
-.navbar-brand span {
+/* .navbar-brand span {
   margin-left: 15px;
+} */
+.secondary-menu {
+  display: none;
 }
 
-@media (max-width: 329px) {
+@media (max-width: 1199px) {
+  .main-menu {
+    display: none;
+  }
+
+  .secondary-menu {
+    display: block;
+  }
+}
+
+/* @media (max-width: 329px) { */
+@media (max-width: 352px) {
   .navbar-brand {
     font-size: 18px;
   }

@@ -2,19 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { logoutUser } from '../../../actions/authActions'
-import {
-  Button,
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
-  Container
-} from 'reactstrap'
+import { Container, Menu, Dropdown, Button } from 'semantic-ui-react'
 import CssModule from '../../layout/AppNavbar/AppNavbar.module.css'
-// import logo from '../../../assets/logo.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class AppNavbar extends Component {
@@ -30,52 +19,93 @@ class AppNavbar extends Component {
 
   onLogoutClick = e => {
     e.preventDefault()
-    console.log(this.props.auth.isAuthenticated)
 
     this.props.logoutUser()
   }
 
   render() {
     return (
-      <div
-        style={{
-          margin: 'auto',
-          top: '0',
-          left: '0',
-          right: '0',
-          zIndex: '1000'
-        }}
-      >
-        <Navbar color="dark" dark expand="sm" className="mb-5">
-          <Container>
-            <NavbarBrand className={CssModule['navbar-brand']} href="/">
-              {/* <img className={CssModule['logo-img']} src={logo} /> */}
-              <FontAwesomeIcon icon="dove" className={CssModule.logo} />
-              <span>Sanctuary Farm Manager</span>
-            </NavbarBrand>
-            <NavbarToggler onClick={this.toggle} />
-            <Collapse isOpen={this.state.isOpen} navbar>
-              <Nav className="ml-auto" navbar>
-                <NavItem>
-                  <NavLink href="#">Menu</NavLink>
-                </NavItem>
-              </Nav>
-            </Collapse>
-            {this.props.auth.isAuthenticated ? (
-              <Button
-                style={{
-                  width: '150px',
-                  borderRadius: '3px',
-                  letterSpacing: '1.5px',
-                  marginTop: '1rem'
-                }}
-                onClick={this.onLogoutClick}
+      <div>
+        <Container>
+          <div className={CssModule['main-menu']}>
+            <Menu color="black" inverted size="massive" fluid widths={6}>
+              <Menu.Item header className={CssModule['navbar-brand']}>
+                <FontAwesomeIcon icon="dove" className={CssModule.logo} />
+                Sanctuary Farm Manager
+              </Menu.Item>
+
+              <Menu.Item name="Home" href="/" />
+              <Menu.Item
+                name="Animals List"
+                href="/animals"
+                disabled={!this.props.auth.isAuthenticated}
+              />
+              <Menu.Item
+                name="Release Notes"
+                href="/release-notes"
+                disabled={!this.props.auth.isAuthenticated}
+              />
+
+              {this.props.auth.isAuthenticated ? (
+                <Menu.Item>
+                  <Button onClick={this.onLogoutClick}>Logout</Button>
+                </Menu.Item>
+              ) : (
+                <Menu.Item name="Login" href="/login" />
+              )}
+
+              <Dropdown
+                item
+                text="More"
+                disabled={!this.props.auth.isAuthenticated}
               >
-                Logout
-              </Button>
-            ) : null}
-          </Container>
-        </Navbar>
+                <Dropdown.Menu>
+                  <Dropdown.Item>Comming Soon..</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            </Menu>
+          </div>
+          <div className={CssModule['secondary-menu']}>
+            <Menu
+              color="grey"
+              inverted
+              size="massive"
+              stackable
+              fluid
+              widths={2}
+            >
+              <Menu.Item header className={CssModule['navbar-brand']}>
+                <FontAwesomeIcon icon="dove" className={CssModule.logo} />
+                Sanctuary Farm Manager
+              </Menu.Item>
+
+              <Dropdown item text="Menu">
+                <Dropdown.Menu>
+                  <Dropdown.Item href="/">Home</Dropdown.Item>
+                  <Dropdown.Item
+                    href="/animals"
+                    disabled={!this.props.auth.isAuthenticated}
+                  >
+                    Animals List
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    href="/release-notes"
+                    disabled={!this.props.auth.isAuthenticated}
+                  >
+                    Release Notes
+                  </Dropdown.Item>
+                  {this.props.auth.isAuthenticated ? (
+                    <Menu.Item>
+                      <Button onClick={this.onLogoutClick}>Logout</Button>
+                    </Menu.Item>
+                  ) : (
+                    <Menu.Item name="Login" href="/login" />
+                  )}
+                </Dropdown.Menu>
+              </Dropdown>
+            </Menu>
+          </div>
+        </Container>
       </div>
     )
   }

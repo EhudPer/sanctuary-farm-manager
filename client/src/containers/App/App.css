@@ -28,7 +28,11 @@ h4 {
   transition: opacity 1000ms ease-in;
 }
 
-.navbar {
+/* .navbar {
+  position: fixed;
+  width: 100%;
+} */
+.navbar-content {
   position: fixed;
   width: 100%;
 }
@@ -37,7 +41,14 @@ h4 {
   padding-top: 122px;
 }
 
-@media (max-width: 559px) {
+/* @media (max-width: 559px) {
+  .non-navbar-content {
+    padding-top: 170px;
+  }
+} */
+
+/* @media (max-width: 776px) { */
+@media (max-width: 767px) {
   .non-navbar-content {
     padding-top: 170px;
   }
