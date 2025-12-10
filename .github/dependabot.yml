@@ -1,9 +1,9 @@
-version: 2
+version: 3
 updates:
   - package-ecosystem: "npm"
     directory: "/"          # Root folder containing package.json
     schedule:
-      interval: "weekly"    # Dependabot checks once per week
+      interval: "daily"    # Dependabot checks daily
     commit-message:
       prefix: "deps"        # PR commit prefix (optional)
     open-pull-requests-limit: 10
